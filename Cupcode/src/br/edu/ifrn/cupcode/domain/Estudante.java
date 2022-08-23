@@ -18,6 +18,14 @@ public class Estudante {
 	public Estudante() {
 	}
 
+	public Estudante(String matricula, String nome, String sobrenome, String email, String senha) {
+		this.matricula = matricula;
+		this.nome = nome;
+		this.sobrenome = sobrenome;
+		this.email = email;
+		this.senha = senha;;
+	}
+	
 	public Estudante(String matricula, String nome, String sobrenome, String email, String senha, Date dataCadastro,
 			Date ultimoAcesso, int foto, int pontuacao) {
 		this.matricula = matricula;

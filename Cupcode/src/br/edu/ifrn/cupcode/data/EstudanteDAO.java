@@ -3,6 +3,7 @@ package br.edu.ifrn.cupcode.data;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 
@@ -30,52 +31,106 @@ public class EstudanteDAO {
 			int linhasAfetadas = comando.executeUpdate();
 			
 			if (linhasAfetadas > 0) {
+				
 				resultado = true;
+				
 			}
+			
 		} catch (SQLException e) {
 			
 			System.out.println(e.getMessage());
+			
 		}
 
 		finally {
+			
 			Conexao.desconectar();
+			
 		}
-	
-		return resultado;
-	}
-
-	/*
-	 * @Override
-	public void alterarEstudante(Estudante Estudante) {
 		
-		String query = "UPDATE Estudante set agencia = ?, titular = ?, saldo = ? where numero = ?;";
-
+		return resultado;
+		
+	}
+	
+	public boolean alterarPontuacao(Estudante estudante) {
+		
+		String query = "UPDATE estudante SET pontuacao = ? WHERE matricula = ?;";
+		boolean resultado = false;
 		Connection conexao = Conexao.conectar();
 
 		try {
 
 			PreparedStatement comando = conexao.prepareStatement(query);
 
-			comando.setString(1, Estudante.getAgencia());
-			comando.setString(2, Estudante.getTitular());
-			comando.setDouble(3, Estudante.getSaldo());
-			comando.setString(4, Estudante.getNumero());
+			comando.setInt(1, estudante.getPontuacao());
+			comando.setString(2, estudante.getMatricula());
 			
 			int linhasAfetadas = comando.executeUpdate();
 			
 			if (linhasAfetadas > 0) {
-				System.out.println("Estudante atualizada com sucesso!");
+				
+				resultado = true;
+				
 			}
+			
+		} catch (SQLException e) {
+			
+			System.out.println(e.getMessage());
+			
+		}
+
+		finally {
+			
+			Conexao.desconectar();
+			
+		}
+		
+		return resultado;
+		
+	}
+	
+	public Estudante buscarEstudante(String matricula) {
+		
+		Estudante estudante = null;
+		String query = "SELECT matricula, nome, sobrenome, email, pontuacao, foto FROM estudante WHERE matricula = ?;";
+		Connection conexao = Conexao.conectar();
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(query);
+
+			comando.setString(1, matricula);
+			
+			ResultSet resultSet = comando.executeQuery();
+			
+			if (resultSet.next()) {
+				
+				estudante = new Estudante();
+				estudante.setMatricula(resultSet.getString("matricula"));
+				estudante.setNome(resultSet.getString("nome"));
+				estudante.setSobrenome(resultSet.getString("sobrenome"));
+				estudante.setEmail(resultSet.getString("email"));
+				estudante.setPontuacao(resultSet.getInt("pontuacao"));
+				estudante.setFoto(resultSet.getInt("foto"));
+				
+			}
+			
 		} catch (SQLException e) {
 			
 			System.out.println(e.getMessage());
 		}
 
 		finally {
+			
 			Conexao.desconectar();
+			
 		}
+		
+		return estudante;
+		
 	}
-
+	
+	  /*
 	@Override
 	public void removerEstudante(String numero) {
 		String query = "DELETE from Estudante where numero = ?;";
@@ -104,43 +159,7 @@ public class EstudanteDAO {
 		
 	}
 
-	@Override
-	public Estudante buscarEstudante(String numero) {
-		
-		Estudante c1 = null;
-		
-		String query = "SELECT agencia, numero, titular, saldo from Estudante where numero = ?;";
-
-		Connection conexao = Conexao.conectar();
-
-		try {
-
-			PreparedStatement comando = conexao.prepareStatement(query);
-
-			comando.setString(1, numero);
-			
-			ResultSet resultSet = comando.executeQuery();
-			
-			if (resultSet.next()) {
-				
-				c1 = new Estudante();
-				c1.setAgencia(resultSet.getString("agencia"));
-				c1.setNumero(resultSet.getString("numero"));
-				c1.setTitular(resultSet.getString("titular"));
-				c1.setSaldo(resultSet.getDouble("saldo"));
-			}
-			
-		} catch (SQLException e) {
-			
-			System.out.println(e.getMessage());
-		}
-
-		finally {
-			Conexao.desconectar();
-		}
-		
-		return c1;
-	}
+	
 
 	@Override
 	public boolean verificarExistencia(String numero) {

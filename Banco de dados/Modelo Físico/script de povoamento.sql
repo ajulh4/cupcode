@@ -4,7 +4,7 @@ use cupcode_db;
 insert into dificuldade_questao(nivel) values ('Fácil'), ('Médio'), ('Difícil');
 
 /* POVOAMENTO DOS MODOS DE QUESTÕES */
-insert into modo_questao(modo) values ('Verdadeiro ou Falso'), ('Múltipla escolha'), ('Bloco de código');
+insert into modo_questao(modo) values ('Verdadeiro ou Falso'), ('Múltipla Escolha'), ('Bloco de Código');
 
 
 /* POVOAMENTO DAS CONQUISTAS */
@@ -29,4 +29,9 @@ insert into assunto(titulo) values
 ('Relacionamento entre Objetos'), ('Herança'), ('Classes Abstratas'), ('Métodos Abstratos'),
 ('Interfaces'), ('Polimorfismo'), ('Tratamento de Exceções'), ('Coleções de Objetos'), ('Serialização e Persistência de Objetos');
 
+/*ALTERAÇÕES NAS COLUNAS DA TABELA ESTUDANTE*/
+ALTER TABLE `cupcode_db`.`estudante` 
+CHANGE COLUMN `ultimo_acesso` `ultimo_acesso` DATETIME NULL ,
+CHANGE COLUMN `pontuacao` `pontuacao` INT NULL DEFAULT 0 ,
+CHANGE COLUMN `foto` `foto` INT NULL ;
 

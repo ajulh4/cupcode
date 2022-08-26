@@ -7,22 +7,16 @@ public class EstudanteTeste {
 
 	public static void main(String[] args) {
 
-		/*
-		 * Inserindo novo estudante Estudante objEstudante1 = new
-		 * Estudante("20201114010055", "José Carlos", "da Paz Silva", "pzzz.silva@gmail.com", "123abc");
-		 * EstudanteDAO objEstudanteDAO = new EstudanteDAO();
-		 * 
-		 * boolean resultadoInserção = objEstudanteDAO.inserir(objEstudante1);
-		 * 
-		 * System.out.println(resultadoInserção);
-		 */
-
-		//Alterando a pontuação do estudante inserido
+		Estudante objEstudante = new Estudante("20201114010003", "Vinicius", "Costa de Oliveira", "vinicius.grauzeriro@gmail.com", "vinil2.0");
 		EstudanteDAO objEstudanteDAO = new EstudanteDAO();
-		Estudante objEstudante1 = objEstudanteDAO.buscarEstudante("20201114010055");
-		objEstudante1.setPontuacao(12);
+		boolean resultadoCadastro = objEstudanteDAO.cadastrar(objEstudante);
 
-		boolean resultadoAlteracao = objEstudanteDAO.alterarPontuacao(objEstudante1);
+		System.out.println(resultadoCadastro);
+
+		objEstudante = objEstudanteDAO.buscar("20201114010003");
+		objEstudante.setPontuacao(100);
+
+		boolean resultadoAlteracao = objEstudanteDAO.alterarPontuacao(objEstudante);
 
 		System.out.println(resultadoAlteracao);
 

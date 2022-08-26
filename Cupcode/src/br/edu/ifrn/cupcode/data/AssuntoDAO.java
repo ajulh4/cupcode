@@ -6,9 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-
 import br.edu.ifrn.cupcode.domain.Assunto;
-import br.edu.ifrn.cupcode.domain.Dificuldade;
 
 public class AssuntoDAO {
 

@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `cupcode_db`.`Estudante` (
   `email` VARCHAR(200) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
   `data_cadastro` DATETIME NOT NULL,
-  `ultimo_acesso` DATETIME NOT NULL,
-  `pontuacao` INT NOT NULL,
-  `foto` INT NOT NULL,
+  `ultimo_acesso` DATETIME,
+  `pontuacao` INT default 0,
+  `foto` INT,
   PRIMARY KEY (`matricula`))
 ENGINE = InnoDB;
 

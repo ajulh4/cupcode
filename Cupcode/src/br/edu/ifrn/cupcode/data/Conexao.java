@@ -8,7 +8,7 @@ public class Conexao {
 
 	private static final String URL = "jdbc:mysql://localhost:3306/cupcode_db?useTimezone=true&serverTimezone=America/Fortaleza";
 	private static final String USER = "root";
-	private static final String SENHA = "123abc";
+	private static final String SENHA = "root";
 	private static final String DRIVER = "com.mysql.cj.jdbc.Driver";
 	private static Connection connection;
 

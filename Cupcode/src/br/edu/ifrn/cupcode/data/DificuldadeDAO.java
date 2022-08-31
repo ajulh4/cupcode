@@ -14,7 +14,7 @@ public class DificuldadeDAO {
 		
 		List<Dificuldade> dificuldades = new ArrayList<Dificuldade>();
 
-		String query = "SELECT id_dificuldade, nivel from dificuldade_questao;";
+		String query = "SELECT id_dificuldade, nivel FROM dificuldade_questao;";
 
 		Connection conexao = Conexao.conectar();
 

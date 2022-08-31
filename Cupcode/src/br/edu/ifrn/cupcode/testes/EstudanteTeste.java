@@ -7,16 +7,28 @@ public class EstudanteTeste {
 
 	public static void main(String[] args) {
 
-		Estudante objEstudante = new Estudante("20201114010003", "Vinicius", "Costa de Oliveira", "vinicius.grauzeriro@gmail.com", "vinil2.0");
-		EstudanteDAO objEstudanteDAO = new EstudanteDAO();
-		boolean resultadoCadastro = objEstudanteDAO.cadastrar(objEstudante);
+		EstudanteDAO estudanteDAO = new EstudanteDAO();
+
+		cadastrarEstudante(new Estudante("20201114010055", "José Carlos", "da Paz Silva", "pzzz.silva@gmail.com", "123abc"));
+		trocarSenha(estudanteDAO.buscar("20201114010003"), "vinnh2020");
+		
+		cadastrarEstudante(new Estudante("20201114010003", "Vinicius", "Costa de Oliveira", "vinicius.grauzeriro@gmail.com", "vinnh2020"));
+
+	}
+
+	private static void cadastrarEstudante(Estudante e) {
+
+		boolean resultadoCadastro = new EstudanteDAO().cadastrar(e);
 
 		System.out.println(resultadoCadastro);
 
-		objEstudante = objEstudanteDAO.buscar("20201114010003");
-		objEstudante.setPontuacao(100);
+	}
 
-		boolean resultadoAlteracao = objEstudanteDAO.alterarPontuacao(objEstudante);
+	public static void trocarSenha(Estudante e, String novaSenha) {
+
+		e.setSenha(novaSenha);
+
+		boolean resultadoAlteracao = new EstudanteDAO().alterarSenha(e);
 
 		System.out.println(resultadoAlteracao);
 

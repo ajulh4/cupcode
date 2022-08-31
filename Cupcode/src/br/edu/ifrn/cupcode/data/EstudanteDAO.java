@@ -173,6 +173,41 @@ public class EstudanteDAO {
 		return resultado;
 
 	}
+	
+	public boolean alterarSenha(Estudante estudante) {
+
+		Connection conexao = Conexao.conectar();
+		String query = "UPDATE estudante SET senha = ? WHERE matricula = ?;";
+		boolean resultado = false;
+
+		try {
+
+			PreparedStatement comando = conexao.prepareStatement(query);
+
+			comando.setString(1, estudante.getSenha());
+			comando.setString(2, estudante.getMatricula());
+
+			int linhasAfetadas = comando.executeUpdate();
+
+			if (linhasAfetadas > 0) {
+
+				resultado = true;
+
+			}
+
+		} catch (SQLException e) {
+
+			System.out.println(e.getMessage());
+
+		} finally {
+
+			Conexao.desconectar();
+
+		}
+
+		return resultado;
+
+	}
 
 	public Estudante buscar(String matricula) {
 

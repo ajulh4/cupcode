@@ -17,5 +17,9 @@ public class DificuldadeTeste {
 			System.out.println(dificuldade.getNivel());
 		}
 
+		
+		Dificuldade d2 = d1.buscarDificuldade(2);
+		
+		System.out.println(d2.getNivel());
 	}
 }

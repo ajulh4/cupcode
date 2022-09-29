@@ -24,9 +24,9 @@ CREATE TABLE IF NOT EXISTS `cupcode_db`.`Estudante` (
   `email` VARCHAR(200) NOT NULL,
   `senha` VARCHAR(100) NOT NULL,
   `data_cadastro` DATETIME NOT NULL,
-  `ultimo_acesso` DATETIME,
-  `pontuacao` INT default 0,
-  `foto` INT,
+  `ultimo_acesso` DATETIME NOT NULL,
+  `pontuacao` INT NULL DEFAULT 0,
+  `foto` INT NOT NULL,
   PRIMARY KEY (`matricula`))
 ENGINE = InnoDB;
 
@@ -129,11 +129,11 @@ CREATE TABLE IF NOT EXISTS `cupcode_db`.`Conteudo` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `texto` TEXT NOT NULL,
   `imagem` BLOB NULL,
-  `assunto_id` INT NOT NULL,
+  `Assunto_id` INT NOT NULL,
   PRIMARY KEY (`id`),
-  INDEX `fk_conteudo_assunto1_idx` (`assunto_id` ASC) VISIBLE,
-  CONSTRAINT `fk_conteudo_assunto1`
-    FOREIGN KEY (`assunto_id`)
+  INDEX `fk_Conteudo_Assunto1_idx` (`Assunto_id` ASC) VISIBLE,
+  CONSTRAINT `fk_Conteudo_Assunto1`
+    FOREIGN KEY (`Assunto_id`)
     REFERENCES `cupcode_db`.`Assunto` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
@@ -165,23 +165,22 @@ ENGINE = InnoDB;
 
 
 -- -----------------------------------------------------
--- Table `cupcode_db`.`estudante_conteudo`
+-- Table `cupcode_db`.`estudante_assunto`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cupcode_db`.`estudante_conteudo` (
+CREATE TABLE IF NOT EXISTS `cupcode_db`.`estudante_assunto` (
   `concluido` TINYINT NOT NULL,
-  `Conteudo_id` INT NOT NULL,
   `Estudante_matricula` VARCHAR(14) NOT NULL,
-  INDEX `fk_estudante_conteudo_Conteudo1_idx` (`Conteudo_id` ASC) VISIBLE,
-  INDEX `fk_estudante_conteudo_Estudante1_idx` (`Estudante_matricula` ASC) VISIBLE,
-  PRIMARY KEY (`Estudante_matricula`, `Conteudo_id`),
-  CONSTRAINT `fk_estudante_conteudo_Conteudo1`
-    FOREIGN KEY (`Conteudo_id`)
-    REFERENCES `cupcode_db`.`Conteudo` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_estudante_conteudo_Estudante1`
+  `Assunto_id` INT NOT NULL,
+  INDEX `fk_estudante_assunto_Estudante1_idx` (`Estudante_matricula` ASC) VISIBLE,
+  INDEX `fk_estudante_assunto_Assunto1_idx` (`Assunto_id` ASC) VISIBLE,
+  CONSTRAINT `fk_estudante_assunto_Estudante1`
     FOREIGN KEY (`Estudante_matricula`)
     REFERENCES `cupcode_db`.`Estudante` (`matricula`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_estudante_assunto_Assunto1`
+    FOREIGN KEY (`Assunto_id`)
+    REFERENCES `cupcode_db`.`Assunto` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
@@ -211,7 +210,8 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `cupcode_db`.`Estudante_Quiz` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `inicio_quiz` DATETIME NOT NULL,
-  `fim_quiz` DATETIME NOT NULL,
+  `fim_quiz` DATETIME NULL,
+  `pontuacao_total` INT NULL,
   `Estudante_matricula` VARCHAR(14) NOT NULL,
   `Quiz_id` INT NOT NULL,
   PRIMARY KEY (`id`),

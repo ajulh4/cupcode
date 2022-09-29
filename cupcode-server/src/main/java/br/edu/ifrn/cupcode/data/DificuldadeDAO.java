@@ -6,15 +6,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import br.edu.ifrn.cupcode.domain.Assunto;
+import br.edu.ifrn.cupcode.domain.Dificuldade;
+import br.edu.ifrn.cupcode.domain.ModoQuestao;
 
-public class AssuntoDAO {
+public class DificuldadeDAO {
+	
+	public Dificuldade buscarDificuldade(int id) {
 
-	// Buscar um único assunto
-	public Assunto buscarAssunto(int id) {
-
-		Assunto assunto = null;
-		String query = "SELECT id, titulo FROM assunto WHERE id = ?;";
+		Dificuldade dificuldade = null;
+		String query = "SELECT id_dificuldade, nivel FROM dificuldade_questao WHERE id_dificuldade = ?;";
 		Connection conexao = Conexao.conectar();
 
 		try {
@@ -27,9 +27,9 @@ public class AssuntoDAO {
 
 			if (resultSet.next()) {
 
-				assunto = new Assunto();
-				assunto.setId(resultSet.getInt("id"));
-				assunto.setTitulo(resultSet.getString("titulo"));
+				dificuldade = new Dificuldade();
+				dificuldade.setId(resultSet.getInt("id_dificuldade"));
+				dificuldade.setNivel(resultSet.getString("nivel"));
 
 			}
 
@@ -44,16 +44,15 @@ public class AssuntoDAO {
 
 		}
 
-		return assunto;
+		return dificuldade;
 
 	}
-	
-	// Buscar todos os assuntos
-	public List<Assunto> buscarTodos() {
 
-		List<Assunto> assuntos = new ArrayList<Assunto>();
+	public List<Dificuldade> buscarTodos() {
+		
+		List<Dificuldade> dificuldades = new ArrayList<Dificuldade>();
 
-		String query = "SELECT id, titulo from assunto;";
+		String query = "SELECT id_dificuldade, nivel FROM dificuldade_questao;";
 
 		Connection conexao = Conexao.conectar();
 
@@ -65,27 +64,27 @@ public class AssuntoDAO {
 
 			while (resultSet.next()) {
 
-				Assunto a1 = new Assunto();
-				a1.setId(resultSet.getInt("id"));
-				a1.setTitulo(resultSet.getString("titulo"));
-				assuntos.add(a1);
-
+				Dificuldade d1 = new Dificuldade();
+				d1.setId(resultSet.getInt("id_dificuldade"));
+				d1.setNivel(resultSet.getString("nivel"));
+				dificuldades.add(d1);
+				
 			}
 
 		} catch (SQLException e) {
 
 			System.out.println(e.getMessage());
-
+			
 		}
 
 		finally {
-
+			
 			Conexao.desconectar();
-
+			
 		}
 
-		return assuntos;
-
+		return dificuldades;
+		
 	}
-
+	
 }
